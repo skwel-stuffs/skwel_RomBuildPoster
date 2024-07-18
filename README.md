@@ -4,13 +4,16 @@
 
 I created this script to automate tasks for building a custom ROM because I'm lazy. 
 
-Usage: 
+Requirements:
 
-git clone 
-./skwel_upload
+sudo apt-get install jq  # On Debian-based systems
+sudo yum install jq      # On Red Hat-based systems
+
+git clone https://github.com/skwel-stuffs/skwel_RomBuildBot.git . && chmod +x skwel_upload
 
 
-Configuration:
+Edit Comfig file: config.json as follow:
+
 
 TOKEN: <E.g asxxcasDASa100^&>
 
@@ -25,3 +28,8 @@ TARGET: <E.g everest_topaz-userdebug>
 FILE_PATH: <E.g out/target/product/topaz>
 
 BUILD_TYPE: <E.g OFFICIAL/UNOFFICIAL>
+
+
+Usage:
+
+./skwel_upload
