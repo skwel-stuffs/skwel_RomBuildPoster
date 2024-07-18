@@ -2,7 +2,7 @@
 # skwel ROM Build Poster #
 #####################################
 
-I created this script to automate tasks for building a custom ROM because I'm lazy. 
+I created this script to automate tasks for building a custom ROM because I'm lazy. Essentially, it performs the following steps: **Build**, **Upload**, and **Notify Telegram**.
 
 
 
