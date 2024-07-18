@@ -1,6 +1,6 @@
-##########################
+################################
 # skwel ROM Build Poster #
-##########################
+################################
 
 I created this script to automate tasks for building a custom ROM because I'm lazy
 
