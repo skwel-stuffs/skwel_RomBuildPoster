@@ -17,7 +17,12 @@ sudo yum install jq      # On Red Hat-based systems
 git clone https://github.com/skwel-stuffs/skwel_RomBuildBot.git . && chmod +x skwel_upload
 
 
+
+
+
 Edit Config file: _config.json_ as follow:
+
+
 
 
 **TOKEN:** <E.g asxxcasDASa100^& >
@@ -33,6 +38,8 @@ Edit Config file: _config.json_ as follow:
 **FILE_PATH:** < E.g out/target/product/topaz >
 
 **BUILD_TYPE:** < E.g OFFICIAL/UNOFFICIAL>
+
+
 
 
 
