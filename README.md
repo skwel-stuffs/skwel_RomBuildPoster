@@ -6,7 +6,7 @@ I created this script to automate tasks for building a custom ROM because I'm la
 
 
 
-Requirements:
+**Requirements:**
 
 
 sudo apt-get install jq  # On Debian-based systems
@@ -17,26 +17,26 @@ sudo yum install jq      # On Red Hat-based systems
 git clone https://github.com/skwel-stuffs/skwel_RomBuildBot.git . && chmod +x skwel_upload
 
 
-Edit Comfig file: config.json as follow:
+Edit Config file: _config.json_ as follow:
 
 
-TOKEN: <E.g asxxcasDASa100^&>
+**TOKEN:** <E.g asxxcasDASa100^& >
 
-CHAT_ID: >
+**CHAT_ID:** <E.g -123456789 >
 
-MAINTAINER: <E.g skwel>
+**MAINTAINER:** <E.g skwel>
 
-ROM: <E.g EverestOS>
+**ROM:** < E.g EverestOS >
 
-TARGET: <E.g everest_topaz-userdebug>
+**TARGET:** < E.g everest_topaz-userdebug >
 
-FILE_PATH: <E.g out/target/product/topaz>
+**FILE_PATH:** < E.g out/target/product/topaz >
 
-BUILD_TYPE: <E.g OFFICIAL/UNOFFICIAL>
-
-
+**BUILD_TYPE:** < E.g OFFICIAL/UNOFFICIAL>
 
 
-Usage:
+
+
+**Usage:**
 
 ./skwel_upload
