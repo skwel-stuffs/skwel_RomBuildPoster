@@ -2,7 +2,7 @@
 # skwel ROM Build Poster #
 #####################################
 
-I created this script to automate tasks for building a custom ROM because I'm lazy
+I created this script to automate tasks for building a custom ROM because I'm lazy. 
 
 Usage: 
 
@@ -23,3 +23,5 @@ ROM: <E.g EverestOS>
 TARGET: <E.g everest_topaz-userdebug>
 
 FILE_PATH: <E.g out/target/product/topaz>
+
+BUILD_TYPE: <E.g OFFICIAL/UNOFFICIAL>
