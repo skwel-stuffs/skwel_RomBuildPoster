@@ -4,6 +4,14 @@
 I created this script to automate tasks for building a custom ROM because I'm lazy. Essentially, it performs the following steps: **Build**, **Upload**, and **Notify Telegram**.
 
 
+Resources:
+
+- Upload API - gofile.io
+- Bash Script
+- JSON
+- Tested and deployed on Ubuntu system
+
+
 
 **Requirements:**
 
