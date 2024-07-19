@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# Function to get store number from API
+get_store_number() {
+    local store_number=$(curl -s https://api.gofile.io/getServer | grep -o '"server":"[^"]*' | cut -d'"' -f4)
+    echo "$store_number"
+}
+
+# Function to upload file using store number
+upload_file() {
+    local store_number=$1
+    local file_path=$2
+    local upload_url="https://${store_number}.gofile.io/uploadFile"
+    response=$(curl --progress-bar -F "file=@$file_path" "$upload_url")
+    echo "$response"
+    download_link=$(echo "$response" | grep -o '"downloadPage":"[^"]*' | cut -d'"' -f4)
+    echo "$download_link"
+}
+
+# Read config values from config.json
+config_file="config.json"
+TOKEN=$(jq -r '.TOKEN' "$config_file")
+CHAT_ID=$(jq -r '.CHAT_ID' "$config_file")
+FOLDER_PATH=$(jq -r '.FOLDER_PATH' "$config_file")
+TARGET=$(jq -r '.TARGET' "$config_file")
+MAINTAINER_NAME=$(jq -r '.MAINTAINER_NAME' "$config_file")
+ROM=$(jq -r '.ROM' "$config_file")
+BUILD_TYPE=$(jq -r '.BUILD_TYPE' "$config_file")
+
+# Generate formatted date
+BUILD_START=$(date +%s)  # Start timestamp
+
+# Run installclean and bacon using envsetup.sh
+echo "Running installclean..."
+source build/envsetup.sh
+if ! m installclean; then
+    echo "installclean failed. Exiting..."
+    exit 1
+fi
+
+# Run lunch command
+echo "Running lunch $TARGET..."
+if ! lunch $TARGET; then
+    echo "lunch $TARGET failed. Exiting..."
+    exit 1
+fi
+
+echo "Running bacon..."
+if ! m bacon -j$(nproc --all); then
+    echo "bacon failed. Exiting..."
+    exit 1
+fi
+
+# Check if folder exists
+if [ ! -d "$FOLDER_PATH" ]; then
+    echo "Error: Folder not found: $FOLDER_PATH"
+    exit 1
+fi
+
+echo "Checking files in folder: $FOLDER_PATH"
+
+# Find the latest .zip file in the folder
+latest_zip_file=""
+
+# Loop through each .zip file in the folder
+for file in "$FOLDER_PATH"/*.zip; do
+    if [ -f "$file" ]; then
+        latest_zip_file="$file"
+        echo "Found file to upload: $latest_zip_file"
+        break  # Exit the loop after finding the first valid .zip file
+    fi
+done
+
+# Check if a valid .zip file was found
+if [ -z "$latest_zip_file" ]; then
+    echo "Error: No valid .zip files found in the folder: $FOLDER_PATH"
+    exit 1
+fi
+
+# Extract file name from the path
+FILE_NAME=$(basename "$latest_zip_file")
+
+# Get store number and upload the file
+store_number=$(get_store_number)
+if [ -n "$store_number" ]; then
+    echo "Got store number: $store_number"
+    response=$(upload_file "$store_number" "$latest_zip_file")
+    download_link=$(echo "$response" | grep -o '"downloadPage":"[^"]*' | cut -d'"' -f4)
+    echo "Download link: $download_link"
+
+    # Calculate build duration (bacon duration)
+    BUILD_END=$(date +%s)  # End timestamp
+    BAKON_DURATION=$((BUILD_END - BUILD_START))  # Duration in seconds
+    BAKON_DURATION_HMS=$(date -u -d @$BAKON_DURATION +"%T")  # Convert to HH:MM:SS format
+
+    # Convert Unix timestamp to human-readable format
+    BUILD_DATE_UNIX=$(date +%s)
+    BUILD_DATE_READABLE=$(date -d @$BUILD_DATE_UNIX +"%A, %d %B, %Y %I:%M:%S %p %Z")
+
+    # Message content with formatted date, file name, download link, bacon duration, and build date in Unix timestamp
+    MESSAGE="Maintainer: $MAINTAINER_NAME
+BUILD_TYPE: $BUILD_TYPE
+ROM: $ROM
+BUILD_DATE: $BUILD_DATE_READABLE
+BUILD_DATE_UNIX: $BUILD_DATE_UNIX
+FILE_NAME: $FILE_NAME
+DOWNLOAD_LINK: $download_link
+BUILD_DURATION: $BAKON_DURATION_HMS"
+
+    # Send message via curl to Telegram
+    curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHAT_ID -d text="$MESSAGE"
+else
+    echo "Failed to get store number."
+fi
