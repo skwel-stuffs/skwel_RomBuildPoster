@@ -49,3 +49,10 @@ curl -s https://api.telegram.org/bot<TOKEN_ID>/getupdates
 **Usage:**
 
 ./skwel_upload
+
+
+
+Sample Output:
+
+<img width="949" alt="image" src="https://github.com/user-attachments/assets/08fd5218-c02e-46e5-a605-77cc6692ccc3">
+
