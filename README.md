@@ -18,7 +18,7 @@ Resources:
 
 - sudo apt-get install jq  # On Debian-based systems
 - sudo yum install jq      # On Red Hat-based systems
-- git clone https://github.com/skwel-stuffs/skwel_RomBuildBot.git . && chmod +x skwel_upload
+- git clone https://github.com/skwel-stuffs/skwel_RomBuildPoster.git . && chmod +x skwel_upload
 
 
 
