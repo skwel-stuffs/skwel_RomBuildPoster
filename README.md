@@ -1,6 +1,5 @@
-#####################################
 # skwel ROM Build Poster #
-#####################################
+
 
 I created this script to automate tasks for building a custom ROM because I'm lazy. Essentially, it performs the following steps: **Build**, **Upload**, and **Notify Telegram**.
 
@@ -25,11 +24,11 @@ Edit Config file: _config.json_ as follow:
 
 
 
-**TOKEN:** <E.g asxxcasDASa100^& >
+**TOKEN:** <E.g asxxcasDASa100^& > // Use @BotFather to create a new Bot, name it whatever you want, and make sure to add the bot in your Group as admin. 
 
-**CHAT_ID:** <E.g -123456789 >
+**CHAT_ID:** <E.g -123456789 > // Execute this command and retrieve the Chat Id: curl -s https://api.telegram.org/bot<TOKEN_ID>/getupdates
 
-**MAINTAINER:** <E.g skwel>
+**MAINTAINER:** <E.g skwel> 
 
 **ROM:** < E.g EverestOS >
 
@@ -38,7 +37,6 @@ Edit Config file: _config.json_ as follow:
 **FILE_PATH:** < E.g out/target/product/topaz >
 
 **BUILD_TYPE:** < E.g OFFICIAL/UNOFFICIAL>
-
 
 
 
